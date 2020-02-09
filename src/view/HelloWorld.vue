@@ -3,14 +3,14 @@
     <div>
       <el-row style="margin-top:5%">
         <el-col :xs="{span: 22, offset: 1}" :sm="{span: 16, offset: 4}" :md="{span: 16, offset: 4}" :lg="{span: 12, offset: 6}" :xl="{span: 12, offset: 6}">
-          <div class="grid-content bg-purple-light">
+          <div class="grid-content ">
             <span class="title">伽马建筑后台管理</span>
             <el-form :model="loginForm" :rules="rules" ref="loginForm" label-width="100px" class="demo-loginForm">
             <el-form-item label="" prop="account">
               <el-input v-model="loginForm.account" placeholder="请输入账号"></el-input>
             </el-form-item>
             <el-form-item label="" prop="password" style="margin:10% 0">
-              <el-input type="password" v-model="loginForm.password" placeholder="请输入密码"></el-input>
+              <el-input type="/Homepage/password" v-model="loginForm.password" placeholder="请输入密码"></el-input>
             </el-form-item>
              
             <el-button type="primary" style="font-size:20px;margin-left:36%" @click="submit">登&nbsp;录</el-button>
@@ -69,6 +69,7 @@
              this.clearCookie();
           }
           //发送请求
+          this.$router.push({path:'/Homepage'});
         }
       },
       //设置cookie
@@ -138,7 +139,8 @@
   }
 .demo-loginForm {
   width:60%;
-  margin: 15% 16%;
+  margin: 15% 13%;
   font-family: 宋体;
 }
+
 </style>
