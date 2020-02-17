@@ -8,7 +8,7 @@
             <div style="height:4vh" class="userMessage">***欢迎您</div>  
             <el-menu
                 style="height:87vh;margin:0 auto"
-                default-active="1"
+                default-active="/Homepage/EducationReview"
                 :router="true"
                 :unique-opened="true"
                 class="el-menu-vertical-demo"
@@ -25,7 +25,8 @@
                     <i class="el-icon-s-custom"></i>
                     <span>用户管理</span>
                     </template>
-                    <el-menu-item index="/Homepage/reviewRealName" style="min-width: auto;">认证审核</el-menu-item>
+                    <el-menu-item  index="/Homepage/EducationReview" style="min-width: auto;">学历审核</el-menu-item>
+                    <el-menu-item index="/Homepage/PositionReview" style="min-width: auto;">职位审核</el-menu-item>
                     <el-menu-item index="/Homepage/grantBadge" style="min-width: auto;">授予徽章</el-menu-item>
                     <el-menu-item index="#" style="min-width: auto;">停启用账户</el-menu-item>
                     <el-menu-item index="#" style="min-width: auto;">修改密码</el-menu-item>
@@ -39,7 +40,17 @@
                     </template>
                     <el-menu-item index="#" style="min-width: auto;">主页推荐设置</el-menu-item>
                     <el-menu-item index="#"    style="min-width: auto;">删除不良</el-menu-item>
-                </el-submenu>
+                    <el-menu-item index="#"    style="min-width: auto;">徽章管理</el-menu-item>
+            </el-submenu>
+
+            <el-submenu index="3">
+                    <template slot="title">
+                    <i class="el-icon-setting"></i>
+                    <span>管理员管理</span>
+                    </template>
+                    <el-menu-item index="#" style="min-width: auto;">修改管理员信息</el-menu-item>
+                   
+            </el-submenu>
                 </el-menu>
              </div>
         </el-col>
@@ -72,6 +83,20 @@ export default {
       return flag;
       }
     },
+    beforeRouteEnter(to, from, next) {     //判断是否登录
+      if(sessionStorage.getItem("setUserId")) {     //如果sessionstorage里存了用户名，则表示已登录
+        next(true);
+      }else {
+        next(vm => {    // 通过 `vm` 访问组件实例 ，直接用this是有指向问题的   
+          vm.$router.push('/');
+          vm.$message({     
+            message: '请先登录！',
+            type: 'warning'
+          });
+        })
+
+      }
+    },
         
 }
 </script>
@@ -84,21 +109,21 @@ export default {
      margin: 0%
  }
  .aside {
-     background-color: antiquewhite;
+     background-color: antiquewhite;  /*欢迎您的颜色*/
      height:91vh
  }
  .aside_phone {
      overflow:auto;
-    background-color: antiquewhite;
+    background-color: antiquewhite;   /*欢迎您的颜色*/
      width: 100%;
      height: 30vh;
      
  }
  .main {
-     background-color: aqua
+     /* background-color: aqua */
  }
  .main_phone {
-     background-color: aqua;
+     /* background-color: aqua; */
      width: 100%;
  }
  .userMessage {

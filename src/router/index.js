@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/view/HelloWorld'
+import login from '@/view/login'
 import Homepage from '@/view/Homepage'  
-import reviewRealName from '@/components/reviewRealName'
-import grantBadge from '@/components/grantBadge'
-
+import EducationReview from '@/components/EducationReview/EducationReview.vue'
+import grantBadge from '@/components/GrantBadge/GrantBadge.vue'
+import PositionReview from '@/components/PositionReview/PositionReview.vue'
 
 Vue.use(Router)
 
@@ -13,17 +13,23 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'login',
+      component: login
     },
     {
       path:'/Homepage',
       component:Homepage,
+      redirect: '/Homepage/EducationReview',
       children:[
         {
-          path:'reviewRealName',
-          name:'reviewRealName',
-          component:reviewRealName
+          path:'EducationReview',
+          name:'EducationReview',
+          component:EducationReview
+        },
+        {
+          path:'PositionReview',
+          name:'PositionReview',
+          component:PositionReview 
         },
         {
           path:'grantBadge',

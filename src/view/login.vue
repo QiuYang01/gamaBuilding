@@ -58,7 +58,7 @@
       },
       submit(){
 
-        if(!this.loginForm.id&&!this.loginForm.password)
+        if(!this.loginForm.account&&!this.loginForm.password)
            this.$message.error('请填写完整');
         else{
 
@@ -68,6 +68,9 @@
           else{ //没够选清除cookie
              this.clearCookie();
           }
+          //保存用户信息
+          this.$store.dispatch('setUserIdFun',this.loginForm.account); //保存用户的id，后面有用
+           	sessionStorage.setItem('setUserId',this.loginForm.account) //保存用户的id，用户判断是否登录
           //发送请求
           this.$router.push({path:'/Homepage'});
         }
