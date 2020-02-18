@@ -5,7 +5,7 @@
     <el-row>
          <el-col style="" :span="3" :class="[this._isMobile() ? 'aside_phone' : 'aside']" >
           <div style="">
-            <div style="height:4vh" class="userMessage">***欢迎您</div>  
+            <div style="height:4vh" class="userMessage">{{this.welcome}}欢迎您</div>  
             <el-menu
                 style="height:87vh;margin:0 auto"
                 default-active="/Homepage/EducationReview"
@@ -68,7 +68,7 @@
 export default {
     data() {
         return {
-       
+          welcome:'',
         }
     },
     methods: {
@@ -84,7 +84,7 @@ export default {
       }
     },
     beforeRouteEnter(to, from, next) {     //判断是否登录
-      if(sessionStorage.getItem("setUserId")) {     //如果sessionstorage里存了用户名，则表示已登录
+      if(sessionStorage.getItem("UserId")) {     //如果sessionstorage里存了用户名，则表示已登录
         next(true);
       }else {
         next(vm => {    // 通过 `vm` 访问组件实例 ，直接用this是有指向问题的   
@@ -97,6 +97,16 @@ export default {
 
       }
     },
+    created(){
+      if( this.$store.state.name !=''){
+          this.welcome = this.$store.state.name;
+      }
+      else{
+        console.log("执行else里面的");
+        this.welcome = sessionStorage.getItem('UserName');
+      }
+      
+    }
         
 }
 </script>

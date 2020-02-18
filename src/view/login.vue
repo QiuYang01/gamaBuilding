@@ -30,6 +30,7 @@
     data() {
       return {
         store: false,
+        name:"dsf",
         loginForm: {
           account: '',
           password:'',
@@ -68,10 +69,13 @@
           else{ //没够选清除cookie
              this.clearCookie();
           }
+           //发送请求 返回管理者的名字name
           //保存用户信息
-          this.$store.dispatch('setUserIdFun',this.loginForm.account); //保存用户的id，后面有用
-           	sessionStorage.setItem('setUserId',this.loginForm.account) //保存用户的id，用户判断是否登录
-          //发送请求
+           this.$store.dispatch('setNameFun','name'); //保存用户的name
+           this.$store.dispatch('setUserIdFun',this.loginForm.account); //保存用户的id
+            sessionStorage.setItem('UserName','name') //保存用户的name
+           	sessionStorage.setItem('UserId',this.loginForm.account) //保存用户的id，用户判断是否登录
+         
           this.$router.push({path:'/Homepage'});
         }
       },

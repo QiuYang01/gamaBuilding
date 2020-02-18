@@ -4,7 +4,8 @@ import login from '@/view/login'
 import Homepage from '@/view/Homepage'  
 import EducationReview from '@/components/EducationReview/EducationReview.vue'
 import grantBadge from '@/components/GrantBadge/GrantBadge.vue'
-import PositionReview from '@/components/PositionReview/PositionReview.vue'
+import PositionReview from '@/components/PositionReview/PositionReview.vue' 
+import showdata from '@/components/GrantBadge/ShowdataArticleAnswer.vue'
 
 Vue.use(Router)
 
@@ -35,7 +36,7 @@ export default new Router({
           path:'grantBadge',
           name:'grantBadge',
           component:grantBadge
-        }
+        },
       ]
     }
   ]

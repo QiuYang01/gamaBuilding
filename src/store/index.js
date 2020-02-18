@@ -6,16 +6,23 @@ Vue.use(Vuex);
 //创建一个 store(仓库)
 const store = new Vuex.Store({
     state: {
-      userId: ''
+      userId: '',
+      name: '',
     },
     mutations: {  //必须是同步的，不能发请求
       setUserId (state,id) {
         state.userId = id
+      },
+      setName(state,name){
+        state.name = name
       }
     },
     actions: {  //可以执行异步请求
       setUserIdFun(context,id){
             context.commit('setUserId',id)
+        },
+        setNameFun(context,name){
+          context.commit('setName',name)
         }
     }
   })
