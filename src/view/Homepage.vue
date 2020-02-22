@@ -28,7 +28,7 @@
                     <el-menu-item  index="/Homepage/EducationReview" style="min-width: auto;">学历审核</el-menu-item>
                     <el-menu-item index="/Homepage/PositionReview" style="min-width: auto;">职位审核</el-menu-item>
                     <el-menu-item index="/Homepage/grantBadge" style="min-width: auto;">授予徽章</el-menu-item>
-                    <el-menu-item index="#" style="min-width: auto;">停启用账户</el-menu-item>
+                    <el-menu-item index="/Homepage/AccountManage" style="min-width: auto;">账户管理</el-menu-item>
                     <el-menu-item index="#" style="min-width: auto;">修改密码</el-menu-item>
                     <el-menu-item index="#" style="min-width: auto;">停启用账户</el-menu-item>
                 </el-submenu>

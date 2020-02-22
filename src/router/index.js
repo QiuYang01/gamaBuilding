@@ -6,6 +6,9 @@ import EducationReview from '@/components/EducationReview/EducationReview.vue'
 import grantBadge from '@/components/GrantBadge/GrantBadge.vue'
 import PositionReview from '@/components/PositionReview/PositionReview.vue' 
 import showdata from '@/components/GrantBadge/ShowdataArticleAnswer.vue'
+import test from '@/components/GrantBadge/TestGrantBadge.vue'
+import AccountManage from '@/components/AccountManage/AccountManage.vue' 
+import StopAccount from '@/components/AccountManage/StopAccount.vue' 
 
 Vue.use(Router)
 
@@ -37,6 +40,23 @@ export default new Router({
           name:'grantBadge',
           component:grantBadge
         },
+        {
+          path:'AccountManage',
+          name:'AccountManage',
+          component:AccountManage,
+          redirect: '/Homepage/AccountManage/StopAccount',
+          children:[
+            {
+              path:'StopAccount',
+              name:'StopAccount',
+              component:() => import('@/components/AccountManage/StopAccount.vue')
+            },
+            {
+              path:'StartAccount',
+              name:'StartAccount',
+              component:() => import('@/components/AccountManage/StartAccount.vue')
+            }]
+        }
       ]
     }
   ]

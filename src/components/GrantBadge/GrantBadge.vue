@@ -5,12 +5,10 @@
      :default-sort = "{prop: 'lever', order: 'descending'}"> <!--默认排序 -->
     <!-- <el-table-column type="selection" width="55">
     </el-table-column> -->
-    <el-table-column  prop="nickName" label="昵称" >
-    </el-table-column>
-    <el-table-column sortable prop="lever" label="等级" >
-    </el-table-column>
-    <el-table-column sortable prop="numProfession" label="专业回答数" show-overflow-tooltip>
-    </el-table-column>
+    <el-table-column  prop="nickName" label="昵称" > </el-table-column>
+    <el-table-column sortable prop="lever" label="等级" > </el-table-column>
+    <el-table-column sortable prop="numProfession" label="专业回答数" show-overflow-tooltip> </el-table-column>
+     <el-table-column  prop="badgeId" label="徽章" show-overflow-tooltip> </el-table-column>
     <el-table-column label="操作">
      <template slot-scope="scope">  <!-- //加了slot-scope="scope"，后面就能用scope.row获取当前行的信息 -->
         <el-button
@@ -29,7 +27,7 @@
       :before-close="handleClose">
       <showdata :userData="this.userData" style="width:100%;margin:0 auto;"></showdata>
       <!-- //选择徽章 -->
-      <el-rate v-model="checkedbadge" show-text :texts="badge">
+      <el-rate v-model="checkedbadge" :max='badgeNum' show-text :texts="badges">
         </el-rate>
       <span slot="footer" class="dialogfoot">
         <el-button @click=cacle>取 消</el-button>
@@ -47,23 +45,27 @@ import showdata from '@/components/GrantBadge/ShowdataArticleAnswer.vue'
     data() {
       return {
         checkedbadge:null,  //选中的徽标额下标  1开始
-        badge:['差','一般','好','优秀','超级棒'],
-         dialogVisible: false,
-        tableData: [{   //列表显示的数据
+        //badgeNum:6,   //徽章的总数
+        badges:['差','一般','好','优秀','超级棒','sd'],
+          dialogVisible: false,
+          tableData: [{   //列表显示的数据
           userId: '1',
           nickName: '张三',
           lever: '2',
           numProfession: '1',
+          badgeId:'1',
         },{
           userId: '2',
           nickName: '李四',
           lever: '1',
           numProfession: '3',
+          badgeId:'2',
         }, {
           userId: '3',
           nickName: '邓五',
           lever: '3',
           numProfession: '3',
+          badgeId:'3',
         }, ],
         multipleSelection: [],
         checkUserId:'',   //被选中的用户的id
@@ -136,7 +138,7 @@ import showdata from '@/components/GrantBadge/ShowdataArticleAnswer.vue'
         this.dialogVisible = false;
         this.checkedbadge = null;   //清空选择的徽章
       },
-      grantBadge(){   //发送请求，保存授予的徽章
+      grantBadge(){   //发送请求，保存授予的徽章 发送用户id和徽章id
         this.dialogVisible = false;
         console.log("选中的id为"+this.checkUserId)
         console.log(this.checkedbadge);
@@ -144,6 +146,11 @@ import showdata from '@/components/GrantBadge/ShowdataArticleAnswer.vue'
         this.checkedbadge = null;
       }
     
+    },
+    computed:{
+      badgeNum(){   //徽章的总数
+        return this.badges.length;
+      }
     },
     mounted(){
       //发送请求为tableData赋值

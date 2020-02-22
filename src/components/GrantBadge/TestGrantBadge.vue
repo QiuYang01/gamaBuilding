@@ -1,7 +1,7 @@
 <template>
     <div>
-        <!-- <button @click="fun1">发请求1</button>
-        <button @click="fun4">发请求</button> -->
+        <button @click="funnn">发请求1</button>
+        <button @click="fun4">发请求</button>
     </div>
 </template>
 
@@ -20,6 +20,23 @@ export default {
         }
     },
     methods:{
+        funnn(){
+            this.$axios({
+              method:"post",
+                url:'http://cet-bm.neea.edu.cn/Home/ToQueryTestTicket',
+                // `data` 是作为请求主体被发送的数据
+                data: JSON.stringify(this.article),
+                headers:{
+                    'Content-Type':'application/json;charset=UTF-8'  
+                }
+            })
+            .then(res=>{
+                console.log(res);
+            })
+            .catch(Error=>{
+                console.log(Error)
+            })
+        },
         fun1(){         //后台用@RequestBody接受整个article参数
             console.log("DSf");
             this.$axios({
