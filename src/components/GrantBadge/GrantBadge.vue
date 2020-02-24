@@ -1,6 +1,6 @@
 <template>
  <div  style="width:100%;max-height:91vh;background-color: aliceblue;height:91vh;">
-  <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 100%"
+  <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 100%" stripe
     @selection-change="handleSelectionChange"
      :default-sort = "{prop: 'lever', order: 'descending'}"> <!--默认排序 -->
     <!-- <el-table-column type="selection" width="55">
@@ -46,61 +46,61 @@ import showdata from '@/components/GrantBadge/ShowdataArticleAnswer.vue'
       return {
         checkedbadge:null,  //选中的徽标额下标  1开始
         //badgeNum:6,   //徽章的总数
-        badges:['差','一般','好','优秀','超级棒','sd'],
+        badges:['差','一般','好','优秀','超级棒','sss'],
           dialogVisible: false,
           tableData: [{   //列表显示的数据
           userId: '1',
           nickName: '张三',
           lever: '2',
           numProfession: '1',
-          badgeId:'1',
+          badgeId:'',
         },{
           userId: '2',
           nickName: '李四',
           lever: '1',
           numProfession: '3',
-          badgeId:'2',
+          badgeId:'',
         }, {
           userId: '3',
           nickName: '邓五',
           lever: '3',
           numProfession: '3',
-          badgeId:'3',
+          badgeId:'',
         }, ],
         multipleSelection: [],
         checkUserId:'',   //被选中的用户的id
         userData:[{  //发请求返回七天的数据，数组对象，每个对象有时间，提问数，回答数，文章数
-          time:'',
+          time:'2020-02-18',
           questionNumber:'13',
           answerNumber:'12',
           articleNumber :'21'
         },{  //发请求返回七天的数据，数组对象，每个对象有时间，提问数，回答数，文章数
-          time:'',
+          time:'2020-02-19',
           questionNumber:'22',
           answerNumber:'13',
           articleNumber :'22'
         },{  //发请求返回七天的数据，数组对象，每个对象有时间，提问数，回答数，文章数
-          time:'',
+          time:'2020-02-20',
           questionNumber:'33',
           answerNumber:'14',
           articleNumber :'23'
         },{  //发请求返回七天的数据，数组对象，每个对象有时间，提问数，回答数，文章数
-          time:'',
+          time:'2020-02-21',
           questionNumber:'44',
           answerNumber:'15',
           articleNumber :'24'
         },{  //发请求返回七天的数据，数组对象，每个对象有时间，提问数，回答数，文章数
-          time:'',
+          time:'2020-02-22',
           questionNumber:'22',
           answerNumber:'16',
           articleNumber :'25'
         },{  //发请求返回七天的数据，数组对象，每个对象有时间，提问数，回答数，文章数
-          time:'',
+          time:'2020-02-23',
           questionNumber:'22',
           answerNumber:'17',
           articleNumber :'26'
         },{  //发请求返回七天的数据，数组对象，每个对象有时间，提问数，回答数，文章数
-          time:'',
+          time:'2020-02-24',
           questionNumber:'22',
           answerNumber:'18',
           articleNumber :'27'
@@ -142,7 +142,7 @@ import showdata from '@/components/GrantBadge/ShowdataArticleAnswer.vue'
         this.dialogVisible = false;
         console.log("选中的id为"+this.checkUserId)
         console.log(this.checkedbadge);
-        console.log("选中的标签为"+this.badge[this.checkedbadge-1]);
+        console.log("选中的标签为"+this.badges[this.checkedbadge-1]);
         this.checkedbadge = null;
       }
     
@@ -164,5 +164,8 @@ import showdata from '@/components/GrantBadge/ShowdataArticleAnswer.vue'
 }
 .el-rate__icon {
     font-size: 30px;
+}
+.el-table th {
+    background-color: #ffffff;
 }
 </style>

@@ -84,7 +84,7 @@ export default { // 显示结果的组件，画饼图，传入题目和选项和
             xAxis: {
                  type: 'category',  
                  boundaryGap: false,     //x轴标在点上
-                 data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                 data: [this.userData[0].time,this.userData[1].time,this.userData[2].time,this.userData[3].time,this.userData[4].time,this.userData[5].time,this.userData[6].time]
             },
             yAxis: {},
             series: [{

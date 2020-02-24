@@ -1,6 +1,6 @@
 <template>
     <div style="width:100%;max-height:91vh;background-color: aliceblue;height:91vh;">
-      <div style="height:4vh;border-bottom: 2px solid #a0a0a0;">
+      <div style="height:5vh;border-bottom: 2px solid #a0a0a0;">
         <ul class="clearfix">
                 <router-link :to="{name:'StopAccount'}"><li class="manage_li" @click="check(1)" :class="{'check':ischeck===1}">停 用 账 户</li></router-link>
                 <router-link :to="{name:'StartAccount'}"><li class="manage_li" @click="check(2)" :class="{'check':ischeck===2}">启 用 账 户</li></router-link>
@@ -44,7 +44,8 @@ ul {
     border-top-right-radius:4px;
     /* padding: 8px 0; */
     font-weight: 700;
-    height:4vh;
+    height:5vh;
+    line-height: 5vh;
     }
 .clearfix:after{/*伪元素是行内元素 正常浏览器清除浮动方法,将clearfix加在父盒中*/
 content: "";

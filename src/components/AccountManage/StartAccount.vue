@@ -2,7 +2,7 @@
     <div>    
          <!-- 表格 -->
     <div style="width: 100%;min-height:80vh;">
-        <el-table :data="TableDatafilter( )"  style="width: 100%;">
+        <el-table :data="TableDatafilter( )"  style="width: 100%; " stripe>
           <el-table-column label="昵称" prop="nickName"> </el-table-column>
           <el-table-column label="手机号" prop="bindPhone"> </el-table-column>
           <el-table-column label="是否实名" prop="isRealName"> </el-table-column>
@@ -63,88 +63,88 @@ export default {
          currentRow:{}, //当前行的信息
         tableData: [{   //显示在表格的数据
           userId:'1', //用户id
-          bindPhone:'1',  //绑定手机号
-          nickName:'1', //昵称
-          isRealName:'1', //是否实名
-          idRealJob:'1',  //是否职位认证
-          registration_time:'1',  //注册时间
+          bindPhone:'15652147896',  //绑定手机号
+          nickName:'张三', //昵称
+          isRealName:'是', //是否实名
+          idRealJob:'否',  //是否职位认证
+          registration_time:'2020-02-05',  //注册时间
         }, {
           userId:'2',
-          bindPhone:'2',
-          nickName:'2',
-          isRealName:'2',
-          idRealJob:'2',
-          registration_time:'2',
+          bindPhone:'15652145871',
+          nickName:'李四',
+          isRealName:'否',
+          idRealJob:'否',
+          registration_time:'2020-02-08',
         }, {
          userId:'3',
-          bindPhone:'3',
-          nickName:'3',
-          isRealName:'3',
-          idRealJob:'3',
-          registration_time:'3',
+          bindPhone:'15652421526',
+          nickName:'王五',
+          isRealName:'是',
+          idRealJob:'是',
+          registration_time:'2020-02-01',
         }, {
           userId:'4',
-          bindPhone:'4',
-          nickName:'4',
-          isRealName:'4',
-          idRealJob:'4',
-          registration_time:'4',
+          bindPhone:'15652145871',
+          nickName:'李四',
+          isRealName:'否',
+          idRealJob:'否',
+          registration_time:'2020-02-08',
         }, {
           userId:'5',
-          bindPhone:'5',
-          nickName:'5',
-          isRealName:'5',
-          idRealJob:'5',
-          registration_time:'5',
+          bindPhone:'15652145871',
+          nickName:'李四',
+          isRealName:'否',
+          idRealJob:'否',
+          registration_time:'2020-02-08',
         }, {
           userId:'6',
-          bindPhone:'6',
-          nickName:'6',
-          isRealName:'6',
-          idRealJob:'6',
-          registration_time:'6',
+          bindPhone:'15652145871',
+          nickName:'李四',
+          isRealName:'否',
+          idRealJob:'否',
+          registration_time:'2020-02-08',
         }, {   
           userId:'1',
-          bindPhone:'1',
-          nickName:'1',
-          isRealName:'1',
-          idRealJob:'1',
-          registration_time:'1',
+          bindPhone:'15652145871',
+          nickName:'李四',
+          isRealName:'否',
+          idRealJob:'否',
+          registration_time:'2020-02-08',
         }, {
           userId:'2',
-          bindPhone:'2',
-          nickName:'2',
-          isRealName:'2',
-          idRealJob:'2',
-          registration_time:'2',
+          bindPhone:'15652145871',
+          nickName:'李四',
+          isRealName:'否',
+          idRealJob:'否',
+          registration_time:'2020-02-08',
         }, {
          userId:'3',
-          bindPhone:'3',
-          nickName:'3',
-          isRealName:'3',
-          idRealJob:'3',
-          registration_time:'3',
+          bindPhone:'15652145871',
+          nickName:'李四',
+          isRealName:'否',
+          idRealJob:'否',
+          registration_time:'2020-02-08',
         }, {
           userId:'4',
-          bindPhone:'4',
-          nickName:'4',
-          isRealName:'4',
-          idRealJob:'4',
-          registration_time:'4',
+          bindPhone:'15652145871',
+          nickName:'李四',
+          isRealName:'否',
+          idRealJob:'否',
+          registration_time:'2020-02-08',
         }, {
           userId:'5',
-          bindPhone:'5',
-          nickName:'5',
-          isRealName:'5',
-          idRealJob:'5',
-          registration_time:'5',
+          bindPhone:'15652145871',
+          nickName:'李四',
+          isRealName:'否',
+          idRealJob:'否',
+          registration_time:'2020-02-08',
         }, {
           userId:'6',
-          bindPhone:'6',
-          nickName:'6',
-          isRealName:'6',
-          idRealJob:'6',
-          registration_time:'6',
+          bindPhone:'15652145871',
+          nickName:'李四',
+          isRealName:'否',
+          idRealJob:'否',
+          registration_time:'2020-02-08',
         }],
        
       };
@@ -179,11 +179,8 @@ export default {
         //console.log(index);
         console.log(row);
         //通过row的信息的某个属性发送请求，删除一行数据
-        this.$notify({
-          title: '提示',
-          message: row.nickName+'启用成功',
-          type: 'success'
-        });
+         this.$message(row.nickName+'启用成功');
+      
         this.tableData.splice((this.currentPage-1)*10 + index,1);   //点击停用账号后删除列表的一行
       },
       TableDatafilter(){ //控制表格的数据显示，实现搜索和分页

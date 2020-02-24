@@ -1,13 +1,16 @@
 <template>
-<el-container>
-  <el-header style="min-height:8vh">伽马建筑后台管理系统</el-header>
-  <div style="height:91vh">
+<div >
+  <div style="width:100%;height:8vh;  background-color: #3F67BF;line-height:8vh;  color: #fff;">
+    <el-header class="elheader" style="min-height:8vh;width:80%">伽马建筑后台管理系统</el-header>
+    <div style="float:right;min-height:8vh;width:20%; overflow: hidden;line-height:8vh">{{this.welcome}}欢迎您</div>
+  </div>
+ <div style="height:91vh">
     <el-row>
          <el-col style="" :span="3" :class="[this._isMobile() ? 'aside_phone' : 'aside']" >
           <div style="">
-            <div style="height:4vh" class="userMessage">{{this.welcome}}欢迎您</div>  
+            <!-- <div style="height:vh" class="userMessage"></div>   -->
             <el-menu
-                style="height:87vh;margin:0 auto"
+                style="height:92vh;margin:0 auto"
                 default-active="/Homepage/EducationReview"
                 :router="true"
                 :unique-opened="true"
@@ -18,7 +21,6 @@
                 text-color="#fff"
                 active-text-color="#ffd04b"
                 align="left"
-               
                 >
                 <el-submenu index="1">
                     <template slot="title">
@@ -29,8 +31,8 @@
                     <el-menu-item index="/Homepage/PositionReview" style="min-width: auto;">职位审核</el-menu-item>
                     <el-menu-item index="/Homepage/grantBadge" style="min-width: auto;">授予徽章</el-menu-item>
                     <el-menu-item index="/Homepage/AccountManage" style="min-width: auto;">账户管理</el-menu-item>
-                    <el-menu-item index="#" style="min-width: auto;">修改密码</el-menu-item>
-                    <el-menu-item index="#" style="min-width: auto;">停启用账户</el-menu-item>
+                    <!-- <el-menu-item index="#" style="min-width: auto;">修改密码</el-menu-item>
+                    <el-menu-item index="#" style="min-width: auto;">停启用账户</el-menu-item> -->
                 </el-submenu>
 
             <el-submenu index="2">
@@ -62,7 +64,8 @@
         
     </el-row>
   </div>
-</el-container>
+  
+</div>
 </template>
 <script>
 export default {
@@ -111,6 +114,18 @@ export default {
 }
 </script>
 <style scope>
+.elheader {
+  display: inline-block;
+  padding: 0;
+  /* background-color: #ffffff; */
+
+  font-size: 2.4em;
+  letter-spacing: 0.6em;
+  text-align: center;
+  font-weight:600;
+  font-family: "隶书";
+  overflow: hidden;
+}
  /* .el-container {
      background-color: blue
  } */
@@ -126,7 +141,7 @@ export default {
      overflow:auto;
     background-color: antiquewhite;   /*欢迎您的颜色*/
      width: 100%;
-     height: 30vh;
+     height: 22vh;
      
  }
  .main {

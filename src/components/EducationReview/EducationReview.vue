@@ -1,6 +1,6 @@
 <template>
     <div style="width:100%;max-height:91vh">
-      <div style="max-height:4vh">
+      <div style="max-height:6vh;margin-top:1vh;">
         <!-- 选择不同的审核状态，改变表格的数据 -->
        <div style="float:left;margin-left:3%;width:8%">
            <el-select v-model="showType" size="mini" @change="typeChange" placeholder="待审核">
@@ -11,13 +11,13 @@
         </div>
         <!-- 搜索框 -->
         <div style="float:left;margin-left:4%;width:12%">
-          <el-input v-model="search"  prefix-icon="el-icon-search" size="mini" placeholder="输入关昵称/姓名搜索"/>
+          <el-input v-model="search"  prefix-icon="el-icon-search" size="mini" placeholder="输入关昵称/学校搜索"/>
            
         </div>
       </div>
       <el-container style="width:100%">
       <el-table
-          :data="tableData.filter(data => !search || data.nickName.toLowerCase().includes(search.toLowerCase()) ||data.name.toLowerCase().includes(search.toLowerCase()) )"
+          :data="tableData.filter(data => !search || data.nickName.toLowerCase().includes(search.toLowerCase()) ||data.school.toLowerCase().includes(search.toLowerCase()) )"
           style="width: 100%;max-height:91vh;"
           height="87vh"
           border
@@ -74,10 +74,10 @@
       return {
           search: '', //搜索框输入的
           dialogFormVisible: false,  //控制显示弹出框
-          showType:'0',
+          showType:'0', // 显示数据的审核状态
           tableData: [{
           userId:'1',
-          nickName:'1',
+          nickName:'张三',
           time: '2016-05-02',
           name: '1',
           bindPhone: '15829801243',
@@ -90,21 +90,202 @@
           pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
           pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
         },{
-          userId:'1',
-          nickName:'1',
-          time: '2016-05-02',
-          name: '1',
-          bindPhone: '15829801243',
+          userId:'2',
+          nickName:'李四',
+          time: '2020-05-02',
+          name: '2',
+          bindPhone: '15829803245',
           educationId:'1',
           school:'赣南师范大学',
           degree:'本科',
           pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
           pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureC: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+          pictureC: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
           pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
           pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-        },
-        ],
+        },{
+          userId:'3',
+          nickName:'邓五',
+          time: '2020-02-01',
+          name: '3',
+          bindPhone: '15929801243',
+          educationId:'3',
+          school:'江西理工大学',
+          degree:'本科',
+          pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+          pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
+          pictureC: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
+          pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+          pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+        },{
+          userId:'4',
+          nickName:'王六',
+          time: '2022-05-02',
+          name: '4',
+          bindPhone: '13498011243',
+          educationId:'4',
+          school:'赣南师范大学科技学院',
+          degree:'专科',
+          pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+          pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
+          pictureC: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
+          pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+          pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+        },{
+          userId:'4',
+          nickName:'王六',
+          time: '2022-05-02',
+          name: '4',
+          bindPhone: '13498011243',
+          educationId:'4',
+          school:'赣南师范大学科技学院',
+          degree:'专科',
+          pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+          pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
+          pictureC: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
+          pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+          pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+        },{
+          userId:'4',
+          nickName:'王六',
+          time: '2022-05-02',
+          name: '4',
+          bindPhone: '13498011243',
+          educationId:'4',
+          school:'赣南师范大学科技学院',
+          degree:'专科',
+          pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+          pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
+          pictureC: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
+          pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+          pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+        },{
+          userId:'4',
+          nickName:'王六',
+          time: '2022-05-02',
+          name: '4',
+          bindPhone: '13498011243',
+          educationId:'4',
+          school:'赣南师范大学科技学院',
+          degree:'专科',
+          pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+          pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
+          pictureC: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
+          pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+          pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+        },{
+          userId:'4',
+          nickName:'王六',
+          time: '2022-05-02',
+          name: '4',
+          bindPhone: '13498011243',
+          educationId:'4',
+          school:'赣南师范大学科技学院',
+          degree:'专科',
+          pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+          pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
+          pictureC: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
+          pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+          pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+        },{
+          userId:'4',
+          nickName:'王六',
+          time: '2022-05-02',
+          name: '4',
+          bindPhone: '13498011243',
+          educationId:'4',
+          school:'赣南师范大学科技学院',
+          degree:'专科',
+          pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+          pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
+          pictureC: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
+          pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+          pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+        },{
+          userId:'4',
+          nickName:'王六',
+          time: '2022-05-02',
+          name: '4',
+          bindPhone: '13498011243',
+          educationId:'4',
+          school:'赣南师范大学科技学院',
+          degree:'专科',
+          pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+          pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
+          pictureC: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
+          pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+          pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+        },{
+          userId:'4',
+          nickName:'王六',
+          time: '2022-05-02',
+          name: '4',
+          bindPhone: '13498011243',
+          educationId:'4',
+          school:'赣南师范大学科技学院',
+          degree:'专科',
+          pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+          pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
+          pictureC: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
+          pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+          pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+        },{
+          userId:'4',
+          nickName:'王六',
+          time: '2022-05-02',
+          name: '4',
+          bindPhone: '13498011243',
+          educationId:'4',
+          school:'赣南师范大学科技学院',
+          degree:'专科',
+          pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+          pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
+          pictureC: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
+          pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+          pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+        },{
+          userId:'4',
+          nickName:'王六',
+          time: '2022-05-02',
+          name: '4',
+          bindPhone: '13498011243',
+          educationId:'4',
+          school:'赣南师范大学科技学院',
+          degree:'专科',
+          pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+          pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
+          pictureC: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
+          pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+          pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+        },{
+          userId:'4',
+          nickName:'王六',
+          time: '2022-05-02',
+          name: '4',
+          bindPhone: '13498011243',
+          educationId:'4',
+          school:'赣南师范大学科技学院',
+          degree:'专科',
+          pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+          pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
+          pictureC: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
+          pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+          pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+        },{
+          userId:'4',
+          nickName:'王六',
+          time: '2022-05-02',
+          name: '4',
+          bindPhone: '13498011243',
+          educationId:'4',
+          school:'赣南师范大学科技学院',
+          degree:'专科',
+          pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+          pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
+          pictureC: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
+          pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+          pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+        }],
         openDialogData:{  //弹出框显示的数据
           userId:'',  //用户id
           nickName:'',  //昵称
@@ -133,10 +314,10 @@
         this.tableData.splice(index1,1);
       },
       open(){
-          console.log("显示身份证的弹框显示");
+          //console.log("显示身份证的弹框显示");
       },
       close(){
-          console.log("显示身份证的弹框被关闭");
+         // console.log("显示身份证的弹框被关闭");
       },
       openDialog(index,row){
           console.log(row);
@@ -215,6 +396,7 @@
     font-weight: 700;
 }
 .el-table th {
-    background-color: #ccc;
+    background-color: #fff;
 } 
+
 </style>
