@@ -1,8 +1,8 @@
 <template>
-    <div style="width:100%;max-height:91vh">
+    <div style="width:100%;">
       <div style="max-height:6vh;margin-top:1vh;">
         <!-- 选择不同的审核状态，改变表格的数据 -->
-       <div style="float:left;margin-left:3%;width:8%">
+       <div style="float:left;margin-left:4%;width:10%">
            <el-select v-model="showType" size="mini" @change="typeChange" placeholder="待审核">
              <el-option label="已通过" value="1">  </el-option>
              <el-option label="待审核" value="0">  </el-option>
@@ -10,23 +10,23 @@
             </el-select>
         </div>
         <!-- 搜索框 -->
-        <div style="float:left;margin-left:4%;width:12%">
+        <div style="float:left;margin-left:4%;width:14%">
           <el-input v-model="search"  prefix-icon="el-icon-search" size="mini" placeholder="输入关昵称/学校搜索"/>
            
         </div>
       </div>
-      <el-container style="width:100%">
+      <el-container style="width:96%;margin:0 auto;">
       <el-table
           :data="tableData.filter(data => !search || data.nickName.toLowerCase().includes(search.toLowerCase()) ||data.school.toLowerCase().includes(search.toLowerCase()) )"
-          style="width: 100%;max-height:91vh;"
-          height="87vh"
+          style="width: 100%;max-height:82vh;margin-top:1vh"
+          height="86vh"
           border
           stripe >
           <el-table-column label="昵称" prop="nickName"></el-table-column>
           <el-table-column label="学校" prop="school"></el-table-column>
           <el-table-column label="学位" prop="degree"></el-table-column>
           <el-table-column label="手机号" prop="bindPhone"></el-table-column>
-          <el-table-column label="时间" prop="time"></el-table-column>
+          <el-table-column label="时间" prop='time' :formatter="formatTime"></el-table-column>
           <el-table-column align="center">          
             <template slot-scope="scope" > <!--handleDelete(scope.$index, scope.row) -->
               <el-button v-if="showType === '0'" size="mini"  type="danger" @click="openDialog(scope.$index, scope.row)">审核</el-button>
@@ -69,224 +69,16 @@
 </template> 
 
 <script>
+import QS from 'qs';
   export default {
     data() {
       return {
           search: '', //搜索框输入的
           dialogFormVisible: false,  //控制显示弹出框
           showType:'0', // 显示数据的审核状态
-          tableData: [{
-          userId:'1',
-          nickName:'张三',
-          time: '2016-05-02',
-          name: '1',
-          bindPhone: '15829801243',
-          educationId:'1',
-          school:'赣南师范大学',
-          degree:'本科',
-          pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureC: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-        },{
-          userId:'2',
-          nickName:'李四',
-          time: '2020-05-02',
-          name: '2',
-          bindPhone: '15829803245',
-          educationId:'1',
-          school:'赣南师范大学',
-          degree:'本科',
-          pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureC: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-        },{
-          userId:'3',
-          nickName:'邓五',
-          time: '2020-02-01',
-          name: '3',
-          bindPhone: '15929801243',
-          educationId:'3',
-          school:'江西理工大学',
-          degree:'本科',
-          pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureC: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-        },{
-          userId:'4',
-          nickName:'王六',
-          time: '2022-05-02',
-          name: '4',
-          bindPhone: '13498011243',
-          educationId:'4',
-          school:'赣南师范大学科技学院',
-          degree:'专科',
-          pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureC: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-        },{
-          userId:'4',
-          nickName:'王六',
-          time: '2022-05-02',
-          name: '4',
-          bindPhone: '13498011243',
-          educationId:'4',
-          school:'赣南师范大学科技学院',
-          degree:'专科',
-          pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureC: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-        },{
-          userId:'4',
-          nickName:'王六',
-          time: '2022-05-02',
-          name: '4',
-          bindPhone: '13498011243',
-          educationId:'4',
-          school:'赣南师范大学科技学院',
-          degree:'专科',
-          pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureC: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-        },{
-          userId:'4',
-          nickName:'王六',
-          time: '2022-05-02',
-          name: '4',
-          bindPhone: '13498011243',
-          educationId:'4',
-          school:'赣南师范大学科技学院',
-          degree:'专科',
-          pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureC: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-        },{
-          userId:'4',
-          nickName:'王六',
-          time: '2022-05-02',
-          name: '4',
-          bindPhone: '13498011243',
-          educationId:'4',
-          school:'赣南师范大学科技学院',
-          degree:'专科',
-          pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureC: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-        },{
-          userId:'4',
-          nickName:'王六',
-          time: '2022-05-02',
-          name: '4',
-          bindPhone: '13498011243',
-          educationId:'4',
-          school:'赣南师范大学科技学院',
-          degree:'专科',
-          pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureC: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-        },{
-          userId:'4',
-          nickName:'王六',
-          time: '2022-05-02',
-          name: '4',
-          bindPhone: '13498011243',
-          educationId:'4',
-          school:'赣南师范大学科技学院',
-          degree:'专科',
-          pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureC: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-        },{
-          userId:'4',
-          nickName:'王六',
-          time: '2022-05-02',
-          name: '4',
-          bindPhone: '13498011243',
-          educationId:'4',
-          school:'赣南师范大学科技学院',
-          degree:'专科',
-          pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureC: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-        },{
-          userId:'4',
-          nickName:'王六',
-          time: '2022-05-02',
-          name: '4',
-          bindPhone: '13498011243',
-          educationId:'4',
-          school:'赣南师范大学科技学院',
-          degree:'专科',
-          pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureC: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-        },{
-          userId:'4',
-          nickName:'王六',
-          time: '2022-05-02',
-          name: '4',
-          bindPhone: '13498011243',
-          educationId:'4',
-          school:'赣南师范大学科技学院',
-          degree:'专科',
-          pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureC: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-        },{
-          userId:'4',
-          nickName:'王六',
-          time: '2022-05-02',
-          name: '4',
-          bindPhone: '13498011243',
-          educationId:'4',
-          school:'赣南师范大学科技学院',
-          degree:'专科',
-          pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureC: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-        },{
-          userId:'4',
-          nickName:'王六',
-          time: '2022-05-02',
-          name: '4',
-          bindPhone: '13498011243',
-          educationId:'4',
-          school:'赣南师范大学科技学院',
-          degree:'专科',
-          pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureC: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-        }],
-        openDialogData:{  //弹出框显示的数据
+
+          tableData: [],
+          openDialogData:{  //弹出框显示的数据
           userId:'',  //用户id
           nickName:'',  //昵称
           name: '',   //姓名
@@ -301,16 +93,28 @@
           pictureD: '',
           pictureE: '',
         },
-        
       }
     },
+
     methods: {
-      handleDelete(row) {
+      formatTime(row, column){
+        //获取datas
+         const date= new Date(row[column.property]); 
+         //var date = new Date(dates);
+        // console.log(date);
+         return date.getFullYear() + '/' + (date.getMonth()+1).toString() + '/' +
+                date.getDate() + '  ' + 
+                date.getHours() + ':' +
+                 date.getMinutes() + ':' +
+                 date.getSeconds();
+      },
+      handleDelete(userId) {
         //console.log(row.userId);
         let index1 = this.tableData.findIndex(item=>{	//index1为userId所在的索引
-										if(item.userId == row.userId)
+										if(item.userId === userId)
 									    	return true;
-							})
+              })
+          
         this.tableData.splice(index1,1);
       },
       open(){
@@ -320,20 +124,41 @@
          // console.log("显示身份证的弹框被关闭");
       },
       openDialog(index,row){
-          console.log(row);
+         // console.log(row);
           this.openDialogData = row;
-          console.log("this.openDialogData"+this.openDialogData);
+          console.log("审核的信息");
+          console.log(this.openDialogData);
           this.dialogFormVisible = true;
       },
       disPass(educationId,userId){
-        console.log("不通过的educationId为"+educationId);
-        //发送不通过审核的id
+         console.log("不通过的educationId为"+educationId);
+        this.$axios.post('/User/updateStatus', QS.stringify({   
+          eId: parseInt(educationId), Status: 2 }))
+            .then(response=> {
+              if(response.data.status === 0){
+                this.$message('审核成功');
+              }
+              console.log(response);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });      
         this.dialogFormVisible = false;
         this.handleDelete(userId);
       },
       pass(educationId,userId){
         console.log("通过的educationId为"+educationId);
-        //发送通过审核的id
+        this.$axios.post('/User/updateStatus', QS.stringify({   
+          eId: parseInt(educationId), Status: 1 }))
+            .then(response=> {
+              if(response.data.status === 0){
+                this.$message('审核成功');
+              }
+              console.log(response);
+            })
+            .catch(function (error) {
+              console.log(error);
+            }); 
         this.dialogFormVisible = false;
         this.handleDelete(userId);
       },
@@ -344,25 +169,131 @@
       typeChange(){
         console.log(this.showType);
         // 通过判断this.showType发送不同的请求请求数据,给tableData赋值
-        if(this.showType ==='0')
-         console.log("发送请求，待审核的数据 status='0'");
-         else if (this.showType ==='1')
+        if(this.showType ==='0'){
+          console.log("发送请求，待审核的数据 status='0'");
+           let aData = {};
+    // 发送请求，待审核的数据 status='0'
+    this.$axios.get('/User/QueryAuditByStatus', {params: {Status: '0' }})
+        .then( response=> {
+          console.log(response.data);
+          this.tableData = [];
+          response.data.forEach(item => {
+            aData.userId = item.userPart.id;
+            aData.nickName = item.userPart.nickName;
+            aData.name = item.userPart.name;
+            aData.bindPhone = item.userPart.bindPhone;
+            aData.educationId = item.eId;
+            aData.time = item.time;
+            aData.school = item.school;
+            aData.degree = item.degree;
+            aData.pictureA = item.pictureA;
+            aData.pictureB = item.pictureB;
+            aData.pictureC = item.pictureC;
+            aData.pictureD = item.pictureD;
+            aData.pictureE = item.pictureE;
+            this.tableData.push(aData);
+            aData = {};
+            console.log(aData); 
+          });
+        })
+        .catch(function (error) {
+          console.log(error);
+        }); 
+        }
+         else if (this.showType ==='1'){
            console.log("发送请求，已通过的数据 status='1'");
-           else if(this.showType ==='2')
-            console.log("发送请求，未通过的数据 status='2'");
+            let aData = {};
+          this.$axios.get('/User/QueryAuditByStatus', {params: {Status: '1' }})
+              .then( response=> {
+                console.log(response.data);
+                this.tableData = [];
+                response.data.forEach(item => {
+                  aData.userId = item.userPart.id;
+                  aData.nickName = item.userPart.nickName;
+                  aData.name = item.userPart.name;
+                  aData.bindPhone = item.userPart.bindPhone;
+                  aData.educationId = item.eId;
+                  aData.time = item.time;
+                  aData.school = item.school;
+                  aData.degree = item.degree;
+                  aData.pictureA = item.pictureA;
+                  aData.pictureB = item.pictureB;
+                  aData.pictureC = item.pictureC;
+                  aData.pictureD = item.pictureD;
+                  aData.pictureE = item.pictureE;
+                  this.tableData.push(aData);
+                  aData = {};
+                  console.log(aData);
+                });
+              })
+              .catch(function (error) {
+                console.log(error);
+              }); 
+         }
+           
+           else if(this.showType ==='2'){
+             console.log("发送请求，未通过的数据 status='2'");
+             let aData = {};
+            this.$axios.get('/User/QueryAuditByStatus', {params: {Status: '2' }})
+                .then( response=> {
+                  console.log(response.data);
+                  this.tableData = [];
+                  response.data.forEach(item => {
+                    aData.userId = item.userPart.id;
+                    aData.nickName = item.userPart.nickName;
+                    aData.name = item.userPart.name;
+                    aData.bindPhone = item.userPart.bindPhone;
+                    aData.educationId = item.eId;
+                    aData.time = item.time;
+                    aData.school = item.school;
+                    aData.degree = item.degree;
+                    aData.pictureA = item.pictureA;
+                    aData.pictureB = item.pictureB;
+                    aData.pictureC = item.pictureC;
+                    aData.pictureD = item.pictureD;
+                    aData.pictureE = item.pictureE;
+                    this.tableData.push(aData);
+                    aData = {};
+                    console.log(aData);
+                    
+                  });
+                })
+                .catch(function (error) {
+                  console.log(error);
+                }); 
+           }
+            
       }
     },
     mounted() {
+      let aData = {};
     // 发送请求，待审核的数据 status='0'
-    // this.$axios.post('', {
-    //       name: '0',  
-    //     })
-    //     .then(function (response) {
-    //       console.log(response);
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //     }); 
+    this.$axios.get('/User/QueryAuditByStatus', {params: {Status: '0' }})
+        .then( response=> {
+          console.log(response.data);
+          response.data.forEach(item => {
+            aData.userId = item.userPart.id;
+            aData.nickName = item.userPart.nickName;
+            aData.name = item.userPart.name;
+            aData.bindPhone = item.userPart.bindPhone;
+            aData.educationId = item.eId;
+            aData.time = item.time;
+            aData.school = item.school;
+            aData.degree = item.degree;
+            aData.pictureA = item.pictureA;
+            aData.pictureB = item.pictureB;
+            aData.pictureC = item.pictureC;
+            aData.pictureD = item.pictureD;
+            aData.pictureE = item.pictureE;
+            this.tableData.push(aData);
+            aData = {};
+            console.log(aData);
+            
+          });
+        })
+        .catch(function (error) {
+          console.log(error);
+        }); 
   },
   }
 </script>

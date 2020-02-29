@@ -2,7 +2,7 @@
     <div style="width:100%;max-height:91vh">
       <div style="max-height:5vh;margin-top:1vh">
         <!-- 选择不同的审核状态，改变表格的数据 -->
-        <div style="float:left;margin-left:3%;width:8%">
+        <div style="float:left;margin-left:4%;width:10%">
            <el-select v-model="showType" size="mini" @change="typeChange" placeholder="待审核">
              <el-option label="已通过" value="1">  </el-option>
              <el-option label="待审核" value="0">  </el-option>
@@ -10,15 +10,15 @@
             </el-select>
         </div>
         <!-- 搜索框 -->
-        <div style="float:left;margin-left:4%;width:12%">
+        <div style="float:left;margin-left:4%;width:14%">
           <el-input v-model="search" prefix-icon="el-icon-search" size="mini" placeholder="输入关昵称/姓名搜索"/>
         </div>
       </div>
-      <el-container style="width:100%">
+      <el-container style="width:96%;margin:0 auto">
       <el-table
           :data="tableData.filter(data => !search || data.nickName.toLowerCase().includes(search.toLowerCase()) ||data.name.toLowerCase().includes(search.toLowerCase()) )"
-          style="width: 100%;max-height:91vh;"
-          height="87vh"
+          style="width:100%;max-height:82vh;margin-top:1vh"
+          height="86vh"
           border
           stripe >
           <el-table-column label="昵称" prop="nickName"></el-table-column>
@@ -83,90 +83,6 @@
           positionId:'1',
           company:'华为',
           position:'java工程师',
-          pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureC: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-        },{
-          userId:'2',
-          nickName:'小红',
-          time: '2020-02-01',
-          name: '1',
-          bindPhone: '15879804785',
-          positionId:'2',
-          company:'联想',
-          position:'运维',
-          pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureC: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-        },{
-          userId:'2',
-          nickName:'小毛',
-          time: '2020-02-01',
-          name: '1',
-          bindPhone: '15879804785',
-          positionId:'2',
-          company:'华腾地毯有限公司',
-          position:'软件开发工程师',
-          pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureC: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-        },{
-          userId:'2',
-          nickName:'小黑',
-          time: '2020-02-01',
-          name: '1',
-          bindPhone: '15856132574',
-          positionId:'2',
-          company:'昌荣传媒',
-          position:'H5页面工程师',
-          pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureC: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-        },{
-          userId:'2',
-          nickName:'小白',
-          time: '2020-02-01',
-          name: '1',
-          bindPhone: '15875124885',
-          positionId:'2',
-          company:'腾讯',
-          position:'PHP高级研发工程师',
-          pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureC: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-        },{
-          userId:'2',
-          nickName:'小红',
-          time: '2020-02-01',
-          name: '1',
-          bindPhone: '15874682785',
-          positionId:'2',
-          company:'联想',
-          position:'运维',
-          pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
-          pictureC: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureD: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          pictureE: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-        },{
-          userId:'2',
-          nickName:'小红',
-          time: '2020-02-01',
-          name: '1',
-          bindPhone: '15879804785',
-          positionId:'2',
-          company:'联想',
-          position:'运维',
           pictureA: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
           pictureB: 'http://5b0988e595225.cdn.sohucs.com/images/20171103/ac2da7fba0d447ff8565b81694b4da5d.jpeg',
           pictureC: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',

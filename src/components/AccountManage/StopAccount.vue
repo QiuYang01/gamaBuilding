@@ -188,12 +188,22 @@ export default {
             console.log("当前用户信息");console.log(this.currentRow);
             console.log("密码"+this.form.pass);
             //  发送修改密码的请求
+
           }
         this.form.pass = this.form.checkPass = '';
       },
       stopAccount(index, row) { //停用账户
         //console.log(index);
         console.log(row);
+         this.$axios.get('/User/noUseful', {params: {id: 1 }})
+        .then( response=> {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        }); 
+
+
         //通过row的信息的某个属性发送请求，删除一行数据
          this.$message(row.nickName+'停用成功');
         this.tableData.splice((this.currentPage-1)*10 + index,1);   //点击停用账号后删除列表的一行

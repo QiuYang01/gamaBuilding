@@ -1,16 +1,16 @@
 <template>
 <div >
-  <div style="width:100%;height:8vh;  background-color: #3F67BF;line-height:8vh;  color: #fff;">
+  <div style="width:100%;height:9vh;  background-color: #3F67BF;line-height:9vh;  color: #fff;">
     <el-header class="elheader" style="min-height:8vh;width:80%">伽马建筑后台管理系统</el-header>
-    <div style="float:right;min-height:8vh;width:20%; overflow: hidden;line-height:8vh">{{this.welcome}}欢迎您</div>
+    <div style="float:right;max-height:8vh;width:20%; overflow: hidden;line-height:8vh">{{this.welcome}}欢迎您</div>
   </div>
  <div style="height:91vh">
-    <el-row>
-         <el-col style="" :span="3" :class="[this._isMobile() ? 'aside_phone' : 'aside']" >
-          <div style="">
+    <el-row>      
+         <div :class="[this._isMobile() ? 'aside_phone' : 'aside']" >
+          <div >
             <!-- <div style="height:vh" class="userMessage"></div>   -->
             <el-menu
-                style="height:92vh;margin:0 auto"
+                style="height:91vh;margin:0 auto;width:100%"
                 default-active="/Homepage/EducationReview"
                 :router="true"
                 :unique-opened="true"
@@ -40,9 +40,11 @@
                     <i class="el-icon-s-data"></i>
                     <span>内容管理</span>
                     </template>
-                    <el-menu-item index="#" style="min-width: auto;">主页推荐设置</el-menu-item>
-                    <el-menu-item index="#"    style="min-width: auto;">删除不良</el-menu-item>
-                    <el-menu-item index="#"    style="min-width: auto;">徽章管理</el-menu-item>
+                    <el-menu-item index="/Homepage/ArticleManage" style="min-width: auto;">主页推荐设置</el-menu-item>
+                     <el-menu-item index="/Homepage/ArticleSticky"   style="min-width: auto;">已置顶文章</el-menu-item>
+                     <el-menu-item index="/Homepage/ArticleDelete"   style="min-width: auto;">已删除文章</el-menu-item>
+                    <el-menu-item index="/Homepage/LabelManage"    style="min-width: auto;">标签管理</el-menu-item>
+                    <el-menu-item index="/Homepage/BadgeManage"    style="min-width: auto;">徽章管理</el-menu-item>
             </el-submenu>
 
             <el-submenu index="3">
@@ -55,12 +57,15 @@
             </el-submenu>
                 </el-menu>
              </div>
-        </el-col>
-        <el-col :span="21" :class="[this._isMobile() ? 'main_phone' : 'main']" >
-            <div >
-                <router-view></router-view>
+        </div>
+        <div :class="[this._isMobile() ? 'main_phone' : 'main']" >
+            <div style="max-height:91vh">
+           <keep-alive>   <!--需要缓存 -->
+      	       <router-view v-if="$route.meta.keepAlive"></router-view>
+      	   </keep-alive>
+                <router-view v-if="!$route.meta.keepAlive"></router-view>
             </div>
-        </el-col>
+        </div>
         
     </el-row>
   </div>
@@ -105,7 +110,7 @@ export default {
           this.welcome = this.$store.state.name;
       }
       else{
-        console.log("执行else里面的");
+        //console.log("执行else里面的");
         this.welcome = sessionStorage.getItem('UserName');
       }
       
@@ -118,9 +123,9 @@ export default {
   display: inline-block;
   padding: 0;
   /* background-color: #ffffff; */
-
   font-size: 2.4em;
-  letter-spacing: 0.6em;
+  letter-spacing: 0.4em;
+  /* letter-spacing:2%; */
   text-align: center;
   font-weight:600;
   font-family: "隶书";
@@ -134,18 +139,20 @@ export default {
      margin: 0%
  }
  .aside {
-     background-color: antiquewhite;  /*欢迎您的颜色*/
-     height:91vh
+    float: left;
+    max-height: 91vh;
+     height:91vh;
+     width:10%;
  }
  .aside_phone {
-     overflow:auto;
-    background-color: antiquewhite;   /*欢迎您的颜色*/
-     width: 100%;
-     height: 22vh;
-     
+   width: 100%;
+   height: 28vh;
  }
+
  .main {
-     /* background-color: aqua */
+    float: left;
+     width: 90%;
+     max-height: 91vh;
  }
  .main_phone {
      /* background-color: aqua; */
@@ -171,5 +178,12 @@ a {
  .el-submenu__title {
      background-color: blue;
      padding: 0;
+ }
+  .aside_phone {
+     overflow:auto;
+    background-color: antiquewhite;   /*欢迎您的颜色*/
+     width: 100%;
+     height: 22vh;
+     
  }
 </style>

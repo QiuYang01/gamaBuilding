@@ -29,6 +29,9 @@ Vue.prototype.qs = QS;
 import echarts from 'echarts' 
 Vue.prototype.$echarts = echarts //引入组件
 
+import global from './globle/globleApi';
+Vue.prototype.global = global;
+axios.defaults.baseURL = global.baseURL;
 
 /* eslint-disable no-new */
 new Vue({

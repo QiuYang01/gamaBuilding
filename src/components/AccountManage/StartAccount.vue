@@ -178,6 +178,13 @@ export default {
       startAccount(index, row) { //启用账户
         //console.log(index);
         console.log(row);
+        this.$axios.get('User/isUseful', {params: {id: 1 }})
+        .then( response=> {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
         //通过row的信息的某个属性发送请求，删除一行数据
          this.$message(row.nickName+'启用成功');
       

@@ -22,10 +22,10 @@ export default {
     methods:{
         funnn(){
             this.$axios({
-              method:"post",
-                url:'http://cet-bm.neea.edu.cn/Home/ToQueryTestTicket',
+              method:"get",
+                url:'https://www.baidu.com/',
                 // `data` 是作为请求主体被发送的数据
-                data: JSON.stringify(this.article),
+                //data: JSON.stringify(this.article),
                 headers:{
                     'Content-Type':'application/json;charset=UTF-8'  
                 }

@@ -1,6 +1,6 @@
 <template>
- <div  style="width:100%;max-height:91vh;background-color: aliceblue;height:91vh;">
-  <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 100%" stripe
+ <div  style="width:96%;margin:0 auto;max-height:91vh;height:89vh;margin-top:2vh">
+  <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 100%;height:89vh" stripe 
     @selection-change="handleSelectionChange"
      :default-sort = "{prop: 'lever', order: 'descending'}"> <!--默认排序 -->
     <!-- <el-table-column type="selection" width="55">

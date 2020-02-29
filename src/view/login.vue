@@ -10,7 +10,8 @@
               <el-input v-model="loginForm.account" placeholder="请输入账号"></el-input>
             </el-form-item>
             <el-form-item label="" prop="password" style="margin:10% 0">
-              <el-input type="/Homepage/password" v-model="loginForm.password" placeholder="请输入密码"></el-input>
+              <!-- 想在某个组件的根元素上监听一个原生事件。可以使用 v-on 的修饰符 .native 。 -->
+              <el-input  v-on:keyup.13.native="submit" v-model="loginForm.password" placeholder="请输入密码"></el-input>
             </el-form-item>
              
             <el-button type="primary" style="font-size:20px;margin-left:36%" @click="submit">登&nbsp;录</el-button>
@@ -56,6 +57,9 @@
       },
       resetForm(formName) {
         this.$refs[formName].resetFields();
+      },
+      aaa(){
+        alert("DSF");
       },
       submit(){
 

@@ -13,7 +13,7 @@ import StopAccount from '@/components/AccountManage/StopAccount.vue'
 Vue.use(Router)
 
 export default new Router({
-  mode:'history',
+  // mode:'history',
   routes: [
     {
       path: '/',
@@ -56,7 +56,40 @@ export default new Router({
               name:'StartAccount',
               component:() => import('@/components/AccountManage/StartAccount.vue')
             }]
-        }
+        },
+        {
+          path:'LabelManage',
+          name:'LabelManage',
+          component:()=> import('@/components/LabelManage/LabelManage.vue')
+        },
+        {
+          path:'BadgeManage',
+          name:'BadgeManage',
+          component:()=> import('@/components/BadgeManage/BadgeManage.vue')
+        },
+        {
+          path:'ArticleManage',
+          name:'ArticleManage',
+          component:()=> import('@/components/ArticleManage/ArticleManage.vue'),
+          meta: {
+            keepAlive: false  // 需要缓存
+            }
+        },
+        {
+          path:'ArticleManage/Comment',
+          name:'ArticleManage/Comment',
+          component:()=> import('@/components/ArticleManage/Comment.vue'),
+        },
+        {
+          path:'ArticleSticky',
+          name:'ArticleSticky',
+          component:()=> import('@/components/ArticleSticky/ArticleSticky.vue')
+        },
+        {
+          path:'ArticleDelete',
+          name:'ArticleDelete',
+          component:()=> import('@/components/ArticleDelete/ArticleDelete.vue')
+        },
       ]
     }
   ]
