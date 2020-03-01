@@ -29,8 +29,14 @@
                   </ul>
                </template>  
           </el-table-column>
-          <el-table-column min-width="20" label="类别" prop="labels"></el-table-column>
-          <el-table-column min-width="40" label="时间" sortable prop="time" sortable :formatter="formatTime"> </el-table-column>
+          <el-table-column min-width="20" label="类别" >
+              <template slot-scope="scope" > 
+                  <ul>
+                    <li v-for="item in scope.row.labels.replace(/[\'|\“|\”|\‘|\’|\[|\]]/g ,'').split(',')" :key="item">{{item.replace(/[\"]/g ,'')}}</li>
+                </ul>
+               </template>
+          </el-table-column>
+          <el-table-column min-width="40" label="时间" sortable prop="time" :formatter="formatTime"> </el-table-column>
           <el-table-column min-width="50" label="操作" align="center">          
             <template slot-scope="scope" > <!--handleDelete(scope.$index, scope.row) -->
               <el-button size="mini"  type="danger" @click="CancelStickyDelete(scope.$index, scope.row)">取消删除</el-button>
@@ -56,7 +62,7 @@ export default {
          return date.getFullYear() + '/' + (date.getMonth()+1).toString() + '/' +
                 date.getDate() + '  ' + 
                 date.getHours() + ':' +
-                 date.getMinutes() + ':' +
+                 date.getMinutes().toString().padStart(2,'0') + ':' +
                  date.getSeconds();
       },
         CancelStickyDelete(index,row){ //取消删除

@@ -35,7 +35,7 @@
               </template>    
           </el-table-column>
           <el-table-column min-width="70" label="标题" prop="title"></el-table-column>
-          <el-table-column min-width="20" label="信息" style="padding:0">
+          <el-table-column min-width="28" label="信息" style="padding:0">
               <template slot-scope="scope" > 
                   <ul style="font-size:12px;">
                       <li >评论数 &nbsp;{{scope.row.numComment}}</li>
@@ -44,12 +44,19 @@
                   </ul>
                </template>  
           </el-table-column>
-          <el-table-column min-width="20" label="类别" prop="labels"></el-table-column>
+          <el-table-column min-width="20" label="类别" >
+              <template slot-scope="scope" > 
+                  <!-- {{scope.row.labels.replace(/[\"|\'|\“|\”|\‘|\’|\[|\]]/g, "").split(',')[0]}} -->
+                  <ul>
+                    <li v-for="item in scope.row.labels.replace(/[\'|\“|\”|\‘|\’|\[|\]]/g ,'').split(',')" :key="item">{{item.replace(/[\"]/g ,'')}}</li>
+                </ul>
+               </template>
+          </el-table-column>
           <el-table-column min-width="40" label="时间"  prop="time" sortable :formatter="formatTime"> </el-table-column>
           <el-table-column min-width="50" label="操作" align="center">          
             <template slot-scope="scope" > <!--handleDelete(scope.$index, scope.row) -->
             <router-link :to="{name:'ArticleManage/Comment',query:{articleId:scope.row.id}}">
-              <el-button size="mini" type="info" @click="openDialog(scope.$index, scope.row)">查看</el-button>
+              <el-button size="mini" type="info" >查看</el-button>
             </router-link>
               <el-button size="mini" v-if="scope.row.isSticky" disabled type="primary" @click="StickyArticle(scope.$index, scope.row)">置顶</el-button>
               <el-button size="mini" v-else type="primary" @click="StickyArticle(scope.$index, scope.row)">置顶</el-button>
@@ -102,17 +109,18 @@ export default {
         // console.log(date);
          return date.getFullYear() + '/' + (date.getMonth()+1).toString() + '/' +
                 date.getDate() + '  ' + 
-                date.getHours() + ':' +
-                 date.getMinutes() + ':' +
-                 date.getSeconds();
+                date.getHours().toString() + ':' +
+                 date.getMinutes().toString().padStart(2,'0') + ':' +
+                 date.getSeconds().toString().padStart(2,'0');
       },
         selectLabel(val){   //通过标签筛选文章
-            console.log(this.labelValue === '');
+           					
+        // console.log(this.labelValue === '');
           if(this.labelValue!= ''){     //通过某个标签筛选
                 let index = this.labels.findIndex(item=>{	//indexe为Id所在的索引
-										if(item.id == val)
+                                      if(item.id == val)
 									    	return true
-                                        })	
+					                   })	
                 console.log(index);     //获取label的id，从而获取内容
                 // 通过this.labelValue发请求，上市成立就无参请求  否者就labels：this.labelValue发请求
                 this.$axios.get('/Content/QueryArticleByCondition',{params:{labels:this.labels[index].content }})
@@ -178,6 +186,8 @@ export default {
                 .then(res=> {
                     console.log(res);
                     this.tableData = res.data;
+                    //console.log("----");
+                    //console.log(res.data[0].labels.split(","));
                 })
                 .catch(err=> {
                     console.log(err);
@@ -213,7 +223,9 @@ export default {
 li {
     list-style: none
 }
-
+.box-table tbody .cell{
+    max-height: 150px;
+ }
 </style>
 <style >
 

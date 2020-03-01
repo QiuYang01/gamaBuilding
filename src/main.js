@@ -33,6 +33,12 @@ import global from './globle/globleApi';
 Vue.prototype.global = global;
 axios.defaults.baseURL = global.baseURL;
 
+// 引入全局过滤器
+import * as filters from './filters'
+Object.keys(filters).forEach(key => {
+    Vue.filter(key, filters[key])
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

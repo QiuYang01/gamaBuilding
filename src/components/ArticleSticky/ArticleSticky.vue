@@ -29,7 +29,13 @@
                   </ul>
                </template>  
           </el-table-column>
-          <el-table-column min-width="20" label="类别" prop="labels"></el-table-column>
+           <el-table-column min-width="20" label="类别" >
+              <template slot-scope="scope" > 
+                  <ul>
+                    <li v-for="item in scope.row.labels.replace(/[\'|\“|\”|\‘|\’|\[|\]]/g ,'').split(',')" :key="item">{{item.replace(/[\"]/g ,'')}}</li>
+                </ul>
+               </template>
+          </el-table-column>
           <el-table-column min-width="40" label="时间"  prop="time" sortable :formatter="formatTime"> </el-table-column>
           <el-table-column min-width="50" label="操作" align="center">          
             <template slot-scope="scope" > <!--handleDelete(scope.$index, scope.row) -->
@@ -56,7 +62,7 @@ export default {
          return date.getFullYear() + '/' + (date.getMonth()+1).toString() + '/' +
                 date.getDate() + '  ' + 
                 date.getHours() + ':' +
-                 date.getMinutes() + ':' +
+                  date.getMinutes().toString().padStart(2,'0') + ':' +
                  date.getSeconds();
       },
         CancelStickyArticle(index,row){ //取消置顶

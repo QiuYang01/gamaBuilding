@@ -11,18 +11,27 @@
              <div class="title">
                  <h3>{{this.articlemsg.title}}</h3> 
                 <div class="fontsamll" style="font-size:14px">
-                    作者 <span >{{this.articlemsg.nickName}}</span>&nbsp; 时间 <span >{{this.articlemsg.time |timeFormat}}</span>
+                    作者 <span >{{this.articlemsg.nickName}}</span>&nbsp; 时间 <span >{{this.articlemsg.time |formatTimer}}</span>
                 <br/><br/><br/>
                 </div>
              </div>
-             <div class="content">{{this.articlemsg.content}}</div>
+             <div style="overflow:auto;width=100%;" class="content"> <div  v-html="this.articlemsg.content"></div></div>
              <div class="foot">
                  <i class="el-icon-ice-cream-round"></i>点赞{{this.articlemsg.numStar}}  <i class="el-icon-star-on"></i>收藏{{this.articlemsg.numFavorite}}  <i class="el-icon-chat-dot-round"></i>评论{{this.articlemsg.numComment}}
                 &nbsp;&nbsp;&nbsp;
              </div>
           </div>
           <!-- 右边显示评论 -->
-          <div class="comment">显示评论</div>
+          <div class="comment">
+              <div v-for="item in this.articlemsg.gamaArticleComments" :key="item.id">
+                  <div class="userinfo">
+                      <span>{{item.replynickName}}</span> <span>{{item.time}}</span>
+                  </div>
+                  <div class="commentinfo">
+                      <div  v-html="item.content"></div>
+                  </div>
+              </div>
+          </div>
         </div>
     </div>
 </template>
@@ -59,18 +68,18 @@ export default {
     methods:{
 
     },
-    filters:{	//过滤器名：方法
-            timeFormat:function(str){
-            var date = new Date(str)
-            var year = date.getFullYear().toString()
-            var month = (date.getMonth()+1).toString()
-            var day = date.getDate().toString()
-            var hour = date.getHours().toString()
-            var minute = date.getMinutes().toString().padStart(2,'.')
-            var second = date.getSeconds().toString()
-            return year +'-' + month +'-' + day +' '+ hour +':'+ minute +':' + second 
-            }
-        },
+    // filters:{	//过滤器名：方法
+    //         timeFormat:function(str){
+    //         var date = new Date(str)
+    //         var year = date.getFullYear().toString()
+    //         var month = (date.getMonth()+1).toString()
+    //         var day = date.getDate().toString()
+    //         var hour = date.getHours().toString()
+    //         var minute = date.getMinutes().toString().padStart(2,'0')
+    //         var second = date.getSeconds().toString()
+    //         return year +'-' + month +'-' + day +' '+ hour +':'+ minute +':' + second 
+    //         }
+    //     },
     beforeLeave(to, from, next){console.log("likai");
         let toDepth = to.path.split('/').length
         let fromDepth = from.path.split('/').length
@@ -83,6 +92,7 @@ export default {
     created(){
         this.$axios.get('/Content/QueryArticleDetailsByid',{params:{id:this.$route.query.articleId}})
         .then(res=> {
+            console.log("-----");
             console.log(res.data);
             this.articlemsg = res.data[0];
         })
@@ -111,13 +121,13 @@ export default {
     float: left;
     height: 78vh;
     border: 1px solid #ccc;
-    overflow: auto;
+    /* overflow: auto; */
 }
 .title {
     width: 100%;
-    max-height: 14vh;
-    height: 12vh;
-     overflow: auto;
+    max-height: 8vh;
+    height: 8vh;
+     /* overflow: auto; */
 }
 .fontsamll {
     font-weight: 700;
@@ -125,10 +135,11 @@ export default {
     font-family: 'Courier New', Courier, monospace
 }
 .content {
+     width: 100%;
     text-align: left;
-    max-height: 62vh;
-    height: 62vh;
-    overflow: auto;
+    max-height: 66vh;
+    height: 66vh;
+    /* overflow: auto; */
 }
 .foot {
     text-align: right;
@@ -142,5 +153,18 @@ export default {
     float: left;
     height: 78vh;
      border: 1px solid #ccc;
+     overflow:auto;
+}
+.userinfo {
+    width: 98%;
+    padding-left: 2%;
+    text-align: left;
+}
+.commentinfo {
+    width: 94%;
+    padding-left: 6%;
+    border-bottom: 1px solid blue; 
+    text-align: left;
+   
 }
 </style>
