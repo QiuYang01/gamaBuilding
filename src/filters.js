@@ -5,7 +5,7 @@ const formatTimer = function(str) {
             var day = date.getDate().toString()
             var hour = date.getHours().toString()
             var minute = date.getMinutes().toString().padStart(2,'0')
-            var second = date.getSeconds().toString()
+            var second = date.getSeconds().toString().padStart(2,'0')
             return year +'-' + month +'-' + day +' '+ hour +':'+ minute +':' + second 
 
 }

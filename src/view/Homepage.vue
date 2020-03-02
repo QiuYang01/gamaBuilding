@@ -40,9 +40,11 @@
                     <i class="el-icon-s-data"></i>
                     <span>内容管理</span>
                     </template>
-                    <el-menu-item index="/Homepage/ArticleManage" style="min-width: auto;">主页推荐设置</el-menu-item>
+                    <el-menu-item index="/Homepage/ArticleManage" style="min-width: auto;">文章管理</el-menu-item>
                      <el-menu-item index="/Homepage/ArticleSticky"   style="min-width: auto;">已置顶文章</el-menu-item>
                      <el-menu-item index="/Homepage/ArticleDelete"   style="min-width: auto;">已删除文章</el-menu-item>
+                     <el-menu-item index="/Homepage/questionManage"   style="min-width: auto;">问题管理</el-menu-item>
+                     <el-menu-item index="/Homepage/questionDelete"   style="min-width: auto;">已删除问题</el-menu-item>
                     <el-menu-item index="/Homepage/LabelManage"    style="min-width: auto;">标签管理</el-menu-item>
                     <el-menu-item index="/Homepage/BadgeManage"    style="min-width: auto;">徽章管理</el-menu-item>
             </el-submenu>

@@ -22,13 +22,25 @@
              </div>
           </div>
           <!-- 右边显示评论 -->
-          <div class="comment">
+          <div  class="comment">
               <div v-for="item in this.articlemsg.gamaArticleComments" :key="item.id">
                   <div class="userinfo">
-                      <span>{{item.replynickName}}</span> <span>{{item.time}}</span>
+                      <span>{{item.replynickName}}</span> <span style="font-size:12px">{{item.time |formatTimer}}</span> 
+                     <el-popover
+                         trigger="hover"
+                         v-model="visible"
+                         style="text-align:center">
+                        <p>确定删除吗？</p>
+                         <div style="float:left; margin: 0;text-align:center">
+                            <el-button size="mini" type="text" @click="visible = false">取消</el-button>
+                            <el-button type="primary" size="mini" @click="deleteComment(item.id)">确定</el-button>
+                        </div>
+                        <el-button style="float:right" slot="reference" size="mini" type="primary"> 删除</el-button>
+                    </el-popover>
                   </div>
-                  <div class="commentinfo">
-                      <div  v-html="item.content"></div>
+                  <div style="overflow-x:hidden;overflow-y:auto;word-break:break-all;text-indent:2em; " class="commentinfo">
+                      11121111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+                      <!-- <div style="width:100%;overflow: hidden;" v-html="item.content"></div> -->
                   </div>
               </div>
           </div>
@@ -45,27 +57,39 @@
 export default {
     data() {
         return {
+            visible:false,
            articlemsg:{
-                id: 1,
-                userId: 1,
-                nickName: "Zeng",
-                title: "1",
-                content: "1",
-                numStar: 1,
-                numComment: 1,
-                numFavorite: 1,
-                labels: "1",
-                time: "2020-02-27T06:51:12.000+0000",
-                gamaArticleComments:[
-                     {id: 1, userId: 2, replyId: 1, content: null, time: "2020-02-27T06:45:44.000+0000" },
-                     {id: 2, userId: 1, replyId: 2, content: null, time: "2020-02-27T06:58:30.000+0000" }
-                ]
-                
+    
 
            } 
         }
     },
     methods:{
+        deleteComment(id){ //删除文章的评论
+        // this.visible = false;
+            console.log("回复的id");
+            console.log(id);
+            this.$axios.delete('/Content/DeleteCommentByid?id='+id)
+            .then(res=> {
+                console.log(res.data);
+               this.$message('删除成功');
+               this.init();
+            })
+            .catch(err=> {
+                console.log(err)
+            })
+        },
+        init(){
+            this.$axios.get('/Content/QueryArticleDetailsByid',{params:{id:this.$route.query.articleId}})
+        .then(res=> {
+            console.log("-----");
+            console.log(res.data);
+            this.articlemsg = res.data[0];
+        })
+        .catch(err=> {
+            console.log(err);
+        })
+        }
 
     },
     // filters:{	//过滤器名：方法
@@ -87,18 +111,10 @@ export default {
         if (toDepth < fromDepth) {
         // console.log('back...')
         to.meta.keepAlive = true
-        }   
+        }
     },
     created(){
-        this.$axios.get('/Content/QueryArticleDetailsByid',{params:{id:this.$route.query.articleId}})
-        .then(res=> {
-            console.log("-----");
-            console.log(res.data);
-            this.articlemsg = res.data[0];
-        })
-        .catch(err=> {
-            console.log(err);
-        })
+        this.init();
     }
 }
 

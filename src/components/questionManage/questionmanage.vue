@@ -11,9 +11,9 @@
             >
             </el-option>
          </el-select>
-         按标题/作者查询
+         按标题/发布人查询
          <el-input
-            placeholder="标题/作者"
+            placeholder="标题/发布人"
             style="width:20%"
             v-model="searchbyname"
             @input="search"
@@ -33,45 +33,32 @@
           height="81vh"
           border
           stripe >
-          <el-table-column min-width="20" label="文章id" prop="id"></el-table-column>
-          <el-table-column min-width="30" label="封面">
-              <template slot-scope="scope">
-                  <el-image
-                    style="width: 100px; "
-                    :src="scope.row.coverImg"
-                    fit="fit">
-                    <div slot="error" class="image-slot">
-                        没有图片
-                     </div>
-                </el-image>
-              </template>    
-          </el-table-column>
-          <el-table-column min-width="70" label="标题" prop="title"></el-table-column>
+          <el-table-column min-width="20" label="问题编号" prop="id"></el-table-column>
+          <el-table-column min-width="30" label="发布者" prop="nickName"> </el-table-column>
+          <el-table-column min-width="70" label="问题" prop="title"></el-table-column>
           <el-table-column min-width="28" label="信息" style="padding:0">
               <template slot-scope="scope" > 
                   <ul style="font-size:12px;">
-                      <li >评论数 &nbsp;{{scope.row.numComment}}</li>
-                      <li >点赞数 &nbsp;{{scope.row.numStar}}</li>
-                      <li >收藏数 &nbsp;{{scope.row.numFavorite}}</li>
+                      <li >关注数 &nbsp;{{scope.row.numAttention}}</li>
+                      <li >回答数 &nbsp;{{scope.row.numAnswer}}</li>
+                      <li >浏览数 &nbsp;{{scope.row.numView}}</li>
                   </ul>
                </template>  
           </el-table-column>
-          <el-table-column min-width="20" label="类别" >
-              <template slot-scope="scope" > 
-                  <!-- {{scope.row.labels.replace(/[\"|\'|\“|\”|\‘|\’|\[|\]]/g, "").split(',')[0]}} -->
+          <el-table-column min-width="20" label="类别" prop="labels">
+              <!-- <template slot-scope="scope" > 
+                  {{scope.row.labels.replace(/[\"|\'|\“|\”|\‘|\’|\[|\]]/g, "").split(',')[0]}}
                   <ul>
                     <li v-for="item in scope.row.labels.replace(/[\'|\“|\”|\‘|\’|\[|\]]/g ,'').split(',')" :key="item">{{item.replace(/[\"]/g ,'')}}</li>
                 </ul>
-               </template>
+               </template> -->
           </el-table-column>
           <el-table-column min-width="40" label="时间"  prop="time" sortable :formatter="formatTime"> </el-table-column>
           <el-table-column min-width="50" label="操作" align="center">          
-            <template slot-scope="scope" > <!--handleDelete(scope.$index, scope.row) -->
-            <router-link :to="{name:'ArticleManage/Comment',query:{articleId:scope.row.id}}">
+            <template slot-scope="scope" > <!--handleDelete(scope.$index, scope.row)   查询一个问题的详细的接口没有返回问题是否删除，这里传是否删除过去-->
+            <router-link :to="{name:'questionManage/answer',query:{questionId:scope.row.id,isdelete:scope.row.isUseful}}">
               <el-button size="mini" type="info" >查看</el-button>
             </router-link>
-              <el-button size="mini" v-if="scope.row.isSticky" disabled type="primary" @click="StickyArticle(scope.$index, scope.row)">置顶</el-button>
-              <el-button size="mini" v-else type="primary" @click="StickyArticle(scope.$index, scope.row)">置顶</el-button>
               <el-button size="mini" v-if="!scope.row.isUseful" disabled type="danger" @click="deleteArticle(scope.$index, scope.row)">删除</el-button>
               <el-button size="mini" v-else type="danger" @click="deleteArticle(scope.$index, scope.row)">删除</el-button>
             </template>
@@ -127,27 +114,24 @@ export default {
                  date.getMinutes().toString().padStart(2,'0') + ':' +
                  date.getSeconds().toString().padStart(2,'0');
       },
-        selectLabel(val){   //通过标签筛选文章
-           					
-        // console.log(this.labelValue === '');
+        selectLabel(val){   //通过标签筛选问题
           if(this.labelValue!= ''){     //通过某个标签筛选
                 let index = this.labels.findIndex(item=>{	//indexe为Id所在的索引
                                       if(item.id == val)
 									    	return true
 					                   })	
                 console.log(index);     //获取label的id，从而获取内容
-                // 通过this.labelValue发请求，上市成立就无参请求  否者就labels：this.labelValue发请求
-                this.$axios.get('/Content/QueryArticleByCondition',{params:{labels:this.labels[index].content }})
+                this.$axios.get('/Content/QueryQuestionByCondition',{params:{labels:this.labels[index].content }})
                 .then(res=> {
                     console.log(res);
-                this.tableData = res.data;
+                    this.tableData = res.data;
                 })
                 .catch(err=> {
                     console.log(err);
                 })  
             }
           else{     //标签框为空。请求所有
-                this.$axios.get('/Content/QueryArticleByCondition')
+                this.$axios.get('Content/QueryQuestionByCondition')
                 .then(res=> {
                     console.log(res);
                     this.tableData = res.data;
@@ -157,13 +141,12 @@ export default {
                 })
             }   
         },
-        search(){      //按标题/作者搜索
+        search(){      //按标题/发布者搜索
             console.log("改变");
-            // this.tableData = !this.searchbyname || this.tableData.nickName.includes(this.searchbyname.toLowerCase())
         },
-        deleteArticle(index,row){ //删除文章
+        deleteArticle(index,row){ //删除问题
             console.log(row);
-            this.$axios.delete('/Content/DeleteArticleByid?id='+row.id)
+            this.$axios.delete('/Content/DeleteQuestionByid?id='+row.id)
              .then(res=> {
                 console.log(res);
                 if(res.data.status === 0){
@@ -182,25 +165,25 @@ export default {
         StickyArticle(index,row){   //置顶文章
             //console.log(row);
             //发送置顶的请求  Content/stickyArticleByid
-            this.$axios.post('/Content/stickyArticleByid',QS.stringify({id:row.id}))
-            .then(res=> {
-                console.log(res);
-               if(res.data.status === 0){
-                   this.$message('置顶成功');
-                  // this.tableData.splice(index,1);
-                  this.init();
-               }
+            // this.$axios.post('/Content/stickyArticleByid',QS.stringify({id:row.id}))
+            // .then(res=> {
+            //     console.log(res);
+            //    if(res.data.status === 0){
+            //        this.$message('置顶成功');
+            //       // this.tableData.splice(index,1);
+            //       this.init();
+            //    }
                  
-                else
-                this.$message('置顶失败');
-            })
-            .catch(err=> {
-                console.log(err);
-            }) 
+            //     else
+            //     this.$message('置顶失败');
+            // })
+            // .catch(err=> {
+            //     console.log(err);
+            // }) 
         },
         init(){
             this.loading = true;
-            this.$axios.get('/Content/QueryArticleByCondition')
+            this.$axios.get('Content/QueryQuestionByCondition')
                 .then(res=> {
                     console.log(res);
                     this.tableData = res.data;
@@ -216,15 +199,15 @@ export default {
                 }
                 
     },
-    beforeRouteLeave(to, from, next){     //通过url长度判断要去的页面是否是文章评论列表，是的话就缓存本页面
-        let toDepth = to.path.split('/').length     //要去的文章评论列表的路由url长度
-        let fromDepth = from.path.split('/').length //现在的文章列表的路由url长度
-        //console.log(toDepth);
-        //console.log(fromDepth);
-        if (toDepth > fromDepth) 
-            from.meta.keepAlive = true  //在离开之前把现在的页面缓存
-        next();
-    },
+    // beforeRouteLeave(to, from, next){     //通过url长度判断要去的页面是否是文章评论列表，是的话就缓存本页面
+    //     let toDepth = to.path.split('/').length     //要去的文章评论列表的路由url长度
+    //     let fromDepth = from.path.split('/').length //现在的文章列表的路由url长度
+    //     //console.log(toDepth);
+    //     //console.log(fromDepth);
+    //     if (toDepth > fromDepth) 
+    //         from.meta.keepAlive = true  //在离开之前把现在的页面缓存
+    //     next();
+    // },
     created(){
        this.init();
     }

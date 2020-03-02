@@ -90,6 +90,24 @@ export default new Router({
           name:'ArticleDelete',
           component:()=> import('@/components/ArticleDelete/ArticleDelete.vue')
         },
+        {
+          path:'questionManage',
+          name:'questionManage',
+          component:()=> import('@/components/questionManage/questionManage.vue'),
+          meta: {
+            keepAlive: false  // 需要缓存
+            }
+        },
+        {
+          path:'questionManage/answer',
+          name:'questionManage/answer',
+          component:()=> import('@/components/questionManage/answer.vue')
+        },
+        {
+          path:'QuestionDelete',
+          name:'QuestionDelete',
+          component:()=> import('@/components/QuestionDelete/QuestionDelete.vue')
+        },
       ]
     }
   ]
